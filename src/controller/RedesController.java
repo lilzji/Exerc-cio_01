@@ -10,13 +10,13 @@ public class RedesController {
 		super();
 	}
 
-	private String sistemaOperacional() {
+	private String os() {
 		String os = System.getProperty("os.name");
 		return os;
 	}
 
 	public void callIp() {
-		String os = sistemaOperacional();
+		String os = os();
 		if (os.contains("Windows")) {
 			String windows = "IPCONFIG";
 			try {
@@ -58,7 +58,7 @@ public class RedesController {
 	}
 
 	public void callPing() {
-		String os = sistemaOperacional();
+		String os = os();
 		if (os.contains("Windows")) {
 			String windows = "ping -4 -n 10 www.google.com.br";
 			try {
@@ -89,10 +89,11 @@ public class RedesController {
 				BufferedReader bufferlinux = new BufferedReader(leitorlinux);
 				String linhalinux = bufferlinux.readLine();
 				while (linhalinux != null) {
-					if (linhalinux.contains("M�dia")) {
-						String[] pinglinux = linhalinux.split("=");
-						System.out.println("A media de ms eh de: " + pinglinux[3]);
+					if (linhalinux.contains("avg")) {
+						String[] pinglinux = linhalinux.split("/");
+						System.out.println("A media de ms eh de: " + pinglinux[4]);
 					}
+					linhalinux = bufferlinux.readLine();
 				}
 			} catch (IOException e) {
 			}
